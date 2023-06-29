@@ -1,0 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registration Form</title>
+	<script type="text/javascript">
+		function validateForm() {
+			var firstName = document.forms["registrationForm"]["firstName"].value;
+			var lastName = document.forms["registrationForm"]["lastName"].value;
+			var email = document.forms["registrationForm"]["email"].value;
+			var mobile = document.forms["registrationForm"]["mobile"].value;
+			var gender = document.forms["registrationForm"]["gender"].value;
+			var password = document.forms["registrationForm"]["password"].value;
+			if (firstName == "" || lastName == "" || email == "" || mobile == "" || gender == "" || password == "") {
+				alert("All fields are required.");
+				return false;
+			}
+			if (password.length < 6) {
+				alert("Password must be at least 6 characters long.");
+				return false;
+			}
+			if (isNaN(mobile)) {
+				alert("Mobile number must be a number.");
+				return false;
+			}
+			return true;
+		}
+	</script>
+</head>
+<body>
+	<h1>Registration Form</h1>
+	<form name="registrationForm" action="register" method="post" onsubmit="return validateForm()">
+		First Name: <input type="text" name="firstName"><br>
+		Last Name: <input type="text" name="lastName"><br>
+		Email: <input type="email" name="email"><br>
+		Mobile: <input type="text" name="mobile"><br>
+		Gender: <input type="radio" name="gender" value="male"> Male <input type="radio" name="gender" value="female"> Female<br>
+		Password: <input type="password" name="password"><br>
+		<input type="submit" value="Submit">
+	</form>
+</body>
+</html>

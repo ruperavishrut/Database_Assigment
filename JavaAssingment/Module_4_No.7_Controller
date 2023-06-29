@@ -1,0 +1,115 @@
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import dao.StudentDao;
+import model.Student;
+
+@WebServlet("/StudentController")
+public class StudentController extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+    private StudentDAO studentDao;
+    
+    public void init() {
+        studentDao = new StudentDao();
+    }
+    
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+        
+        if (action == null) {
+            action = "list";
+        }
+        
+        switch (action) {
+        case "list":
+            listStudents(request, response);
+            break;
+        case "showAddForm":
+            showAddForm(request, response);
+            break;
+        case "addStudent":
+            addStudent(request, response);
+            break;
+        case "showUpdateForm":
+            showUpdateForm(request, response);
+            break;
+        case "updateStudent":
+            updateStudent(request, response);
+            break;
+        case "deleteStudent":
+            deleteStudent(request, response);
+            break;
+        default:
+            listStudents(request, response);
+        }
+    }
+
+    private void listStudents(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        List<Student> students = studentDAO.getAllStudents();
+        request.setAttribute("students", students);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/show.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void showAddForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/add-update-form.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void addStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String fname = request.getParameter("fname");
+        String lname = request.getParameter("lname");
+        String email = request.getParameter("email");
+        String mobile = request.getParameter("mobile");
+        String gender = request.getParameter("gender");
+        String password = request.getParameter("password");
+
+        Student student = new Student(fname, lname, email, mobile, gender, password);
+        studentDAO.addStudent(student);
+        response.sendRedirect("StudentControllerServlet?action=list");
+    }
+
+    private void showUpdateForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Student existingStudent = studentDAO.getStudentById(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/add-update-form.jsp");
+        request.setAttribute("student", existingStudent);
+        dispatcher.forward(request, response);
+    }
+
+    private void updateStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String fname = request.getParameter("fname");
+        String lname = request.getParameter("lname");
+        String email = request.getParameter("email");
+        String mobile = request.getParameter("mobile");
+        String gender = request.getParameter("gender");
+        String password = request.getParameter("password");
+
+        Student student = new Student(id, fname, lname, email, mobile, gender, password);
+        studentDao.updateStudent(student);
+        response.sendRedirect("StudentController?action=list");
+    }
+
+    private void deleteStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        studentDao.deleteStudent(id);
+        response.sendRedirect("StudentController?action=list");
+    }
+}

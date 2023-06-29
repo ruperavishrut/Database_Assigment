@@ -1,0 +1,2 @@
+SELECT MAX(salary) AS HighestSalary
+FROM `assignmenttable1`;

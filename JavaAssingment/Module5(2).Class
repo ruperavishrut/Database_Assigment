@@ -1,0 +1,47 @@
+//messageService 1
+package com.cp;
+
+public class MessageService 
+{
+	public void sendMessage(String message) 
+	{
+        System.out.println("Sending message: " + message);
+    }
+}
+
+//client 2
+package com.cp;
+
+public class Client 
+{
+    private MessageService messageService;
+
+    
+    public Client(MessageService messageService) 
+    {
+        this.messageService = messageService;
+    }
+
+    public void processMessage(String message) 
+    {
+    	messageService.sendMessage(message);
+    }
+}
+
+//main 3
+package com.cp;
+
+public class Main 
+{
+    public static void main(String[] args) 
+    {
+        
+    	MessageService messageService = new MessageService();
+
+        
+        Client client = new Client(messageService);
+
+        
+        client.processMessage("Hello, constructor-based dependency injection!");
+    }
+}

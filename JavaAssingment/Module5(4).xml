@@ -1,0 +1,34 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    
+    <bean id="student1" class="com.example.Student">
+        <property name="id" value="1" />
+        <property name="fname" value="John" />
+        <property name="lname" value="Doe" />
+        <property name="email" value="john.doe@example.com" />
+        <property name="mobile" value="1234567890" />
+    </bean>
+
+    <bean id="student2" class="com.example.Student">
+        <property name="id" value="2" />
+        <property name="fname" value="Jane" />
+        <property name="lname" value="Smith" />
+        <property name="email" value="jane.smith@example.com" />
+        <property name="mobile" value="9876543210" />
+    </bean>
+
+    
+    <bean id="studentList" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <ref bean="student1" />
+                <ref bean="student2" />
+               
+            </list>
+        </constructor-arg>
+    </bean>
+
+</beans>

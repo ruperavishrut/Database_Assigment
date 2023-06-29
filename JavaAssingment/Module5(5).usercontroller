@@ -1,0 +1,49 @@
+// UserController.java
+package com.example.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/user")
+public class UserController {
+
+    @GetMapping("/registration")
+    public String showRegistrationForm(Model model) {
+        // Add necessary code to show the registration form
+        return "registration";
+    }
+
+    @PostMapping("/registration")
+    public String processRegistrationForm(Model model) {
+        // Add necessary code to process the registration form
+        return "redirect:/user/login";
+    }
+
+    @GetMapping("/login")
+    public String showLoginForm(Model model) {
+        // Add necessary code to show the login form
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String processLoginForm(Model model) {
+        // Add necessary code to process the login form
+        return "redirect:/user/profile";
+    }
+
+    @GetMapping("/profile")
+    public String showProfile(Model model) {
+        // Add necessary code to show the user's profile
+        return "profile";
+    }
+
+    @PostMapping("/profile")
+    public String updateProfile(Model model) {
+        // Add necessary code to update the user's profile
+        return "redirect:/user/profile";
+    }
+}

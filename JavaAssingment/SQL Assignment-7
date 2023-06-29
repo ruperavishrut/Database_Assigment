@@ -1,0 +1,3 @@
+SELECT EmpName, EmpNo, Job, Mgr, HireDate, DeptNo
+FROM `assignmenttable1`
+WHERE Commision > Salary 

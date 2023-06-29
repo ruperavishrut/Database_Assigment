@@ -1,0 +1,92 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registration Form</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('form').submit(function(event){
+				event.preventDefault();
+				
+				// Get form fields
+				var firstname = $('#firstname').val();
+				var lastname = $('#lastname').val();
+				var email = $('#email').val();
+				var password = $('#password').val();
+				var confirm_password = $('#confirm_password').val();
+				
+				// Validate first name
+				if (firstname.trim() == '') {
+					alert('Please enter your first name.');
+					return false;
+				}
+				
+				// Validate last name
+				if (lastname.trim() == '') {
+					alert('Please enter your last name.');
+					return false;
+				}
+				
+				// Validate email
+				if (email.trim() == '') {
+					alert('Please enter your email.');
+					return false;
+				} else {
+					var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+					if (!emailRegex.test(email)) {
+						alert('Please enter a valid email.');
+						return false;
+					}
+				}
+				
+				// Validate password
+				if (password.trim() == '') {
+					alert('Please enter your password.');
+					return false;
+				} else {
+					var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+					if (!passwordRegex.test(password)) {
+						alert('Please enter a password that is at least 8 characters long and contains at least one lowercase letter, one uppercase letter, one number, and one special character (@$!%*?&).');
+						return false;
+					}
+				}
+				
+				// Validate confirm password
+				if (confirm_password.trim() == '') {
+					alert('Please confirm your password.');
+					return false;
+				} else if (password != confirm_password) {
+					alert('Passwords do not match.');
+					return false;
+				}
+				
+				// Submit form
+				$(this).unbind('submit').submit();
+			});
+		});
+	</script>
+</head>
+<body>
+	<h2>Registration Form</h2>
+	<form method="POST" action="register">
+		<label for="firstname">First Name:</label>
+		<input type="text" id="firstname" name="firstname"><br><br>
+		
+		<label for="lastname">Last Name:</label>
+		<input type="text" id="lastname" name="lastname"><br><br>
+		
+		<label for="email">Email:</label>
+		<input type="email" id="email" name="email"><br><br>
+		
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password"><br><br>
+		
+		<label for="confirm_password">Confirm Password:</label>
+		<input type="password" id="confirm_password" name="confirm_password"><br><br>
+		
+		<button type="submit">Register</button>
+	</form>
+</body>
+</html>

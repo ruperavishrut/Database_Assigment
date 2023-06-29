@@ -1,0 +1,3 @@
+SELECT EmpName, Job
+FROM `assignmenttable1`
+WHERE Job IN ('SMITH', 'ALLEN');

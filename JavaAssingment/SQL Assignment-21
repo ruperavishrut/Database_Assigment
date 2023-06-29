@@ -1,0 +1,4 @@
+SELECT Job, MIN(Salary) AS MinSalary
+FROM `assignmenttable1`
+GROUP BY Job
+ORDER BY MinSalary ASC;

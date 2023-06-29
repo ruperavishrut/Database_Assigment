@@ -1,0 +1,52 @@
+package com.Assignment;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/register")
+public class Module_4_No_6_Servlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		String email = request.getParameter("email");
+		String mobile = request.getParameter("mobile");
+		String gender = request.getParameter("gender");
+		String password = request.getParameter("password");
+
+		if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || mobile.isEmpty() || gender.isEmpty() || password.isEmpty()) {
+			out.println("<h2>All fields are required.</h2>");
+			return;
+		}
+
+		if (password.length() < 6) {
+			out.println("<h2>Password must be at least 6 characters long.</h2>");
+			return;
+		}
+		
+		  if (!mobile.matches("\\d+")) {
+	            out.println("<h2>Mobile number must be a number.</h2>");
+	            return;
+	        }
+
+	        out.println("<h2>Registration Successful!</h2>");
+	        out.println("<p>First Name: " + firstName + "</p>");
+	        out.println("<p>Last Name: " + lastName + "</p>");
+	        out.println("<p>Email: " + email + "</p>");
+	        out.println("<p>Mobile: " + mobile + "</p>");
+	        out.println("<p>Gender: " + gender + "</p>");
+	        out.println("<p>Password: " + password + "</p>");
+	    }
+	
+	}
+	
+

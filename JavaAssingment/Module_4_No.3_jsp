@@ -1,0 +1,35 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Insert title here</title>
+</head>
+<body>
+	<h1>Student Information Form</h1>
+	<form method="post" action="Module_4_No_3_Servlet">
+	
+		<label>First Name:</label>
+		<input type="text" name="firstName"><br>
+		
+		<label>Last Name:</label>
+		<input type="text" name="lastName"><br>
+		
+		<label>Email:</label>
+		<input type="text" name="email"><br>
+		
+		<label>Mobile No:</label>
+		<input type="text" name="mobile"><br>
+		
+		<label>Gender:</label>
+		<input type="radio" name="gender" value="Male"> Male
+		<input type="radio" name="gender" value="Female"> Female<br>
+		
+		<label>Password:</label>
+		<input type="password" name="password"><br>
+		
+		<input type="submit" value="Submit">
+		
+	</form>
+</body>
+</html>

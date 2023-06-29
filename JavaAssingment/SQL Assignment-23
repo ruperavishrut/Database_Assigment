@@ -1,0 +1,4 @@
+CREATE VIEW v1 AS
+SELECT EmpName, Job, DName,Loc
+FROM `assignmenttable1` e
+INNER JOIN `depttable` d ON e.DeptNo = d.DeptNo;

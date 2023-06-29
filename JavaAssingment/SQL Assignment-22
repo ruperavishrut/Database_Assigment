@@ -1,0 +1,3 @@
+SELECT *
+FROM `assignmenttable1`
+WHERE Salary > (SELECT Salary FROM `assignmenttable1` WHERE EmpName = 'Blake');

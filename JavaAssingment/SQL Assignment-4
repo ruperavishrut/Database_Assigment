@@ -1,0 +1,3 @@
+SELECT EmpName
+FROM `assignmenttable1` 
+WHERE HireDate < '1981-01-01';

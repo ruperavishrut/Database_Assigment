@@ -1,0 +1,6 @@
+public class UserRepository {
+    public void saveUser(String username, String password) {
+        // Code for saving the user to a database
+        System.out.println("Saving user to the database: " + username);
+    }
+}

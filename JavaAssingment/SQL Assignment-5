@@ -1,0 +1,3 @@
+SELECT Empno, EmpName, Salary, Salary/30 AS Commision, Salary*12 AS Annualsalary 
+FROM `assignmenttable1` 
+ORDER BY Annualsalary ASC;

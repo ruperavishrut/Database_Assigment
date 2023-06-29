@@ -1,0 +1,8 @@
+SELECT EmpName, Salary
+FROM `assignmenttable1`
+WHERE Salary = (
+    SELECT MAX(Salary)
+    FROM `assignmenttable1`
+);
+
+

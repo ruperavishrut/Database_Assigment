@@ -1,0 +1,4 @@
+SELECT Empname,Salary
+FROM `assignmenttable1` 
+WHERE Salary in (800,3000)
+order by Salary Desc;

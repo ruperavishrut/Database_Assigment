@@ -1,0 +1,8 @@
+SELECT DeptNo
+FROM `assignmenttable1` 
+ORDER BY DeptNo ASC;
+
+SELECT job
+FROM `assignmenttable1` 
+ORDER BY Job DESC;
+

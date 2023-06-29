@@ -1,0 +1,130 @@
+package com.Assignment;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Properties;
+import java.util.Random;
+
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.dao.UserDao;
+import com.model.UserModel;
+
+public class Module_4_No_8_LoginServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+    private UserDao userDao;
+
+    public void init() {
+        userDao = new UserDao();
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        // Validate the input fields
+        if (email == null || email.equals("") || password == null || password.equals("")) {
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Please fill all the fields');");
+            out.println("location='login.jsp';");
+            out.println("</script>");
+            return;
+        }
+
+        // Check if the email exists in the database
+        UserModel user = userDao.getUserByEmail(email);
+
+        if (user == null) {
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Invalid email or password');");
+            out.println("location='login.jsp';");
+            out.println("</script>");
+            return;
+        }
+
+        // Check if the password is correct
+        if (!user.getPassword().equals(password)) {
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Invalid email or password');");
+            out.println("location='login.jsp';");
+            out.println("</script>");
+            return;
+        }
+
+        // Generate and store OTP in session
+        HttpSession session = request.getSession();
+        int otp = generateOTP();
+        session.setAttribute("email", email);
+        session.setAttribute("otp", otp);
+
+        // Send OTP to the user's email address
+        try {
+			sendOTP(email, otp);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+        // Redirect to the OTP verification page
+        response.sendRedirect("otp.jsp");
+    }
+
+    private static int generateOTP() {
+        Random random = new Random();
+        return 100000 + random.nextInt(900000);
+    }
+
+    public static void sendOTP(String toEmail,int toOTP) throws Exception {
+        String host = "smtp.gmail.com";
+        String user = "rutujpatel278@gmail.com"; // change this to your email address
+        String password = "rutuj123"; // change this to your email password
+        String fromEmail = "rutujpatel278@gmail.com"; // change this to your email address
+        String subject = "One Time Password (OTP) for registration";
+        
+        // generate OTP
+        int otp = generateOTP();
+        
+        // create message body
+        String messageBody = "Your OTP is: " + otp;
+        
+        // set mail properties
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        
+        // create session with authentication
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(user, password);
+            }
+        });
+        
+        // create message
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(fromEmail));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+        message.setSubject(subject);
+        message.setText(messageBody);
+        
+        // send message
+        Transport.send(message);
+        
+    }
+
+}

@@ -1,0 +1,4 @@
+Select EmpName
+From `assignmenttable1`
+WHere Job in ('Clerk', 'Analyst')
+Order by EmpName Desc

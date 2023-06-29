@@ -1,0 +1,4 @@
+SELECT EmpNo, SUM(Salary) AS TotalSalary
+FROM `assignmenttable1`
+WHERE Job = 'Manager'
+GROUP BY EmpNo;

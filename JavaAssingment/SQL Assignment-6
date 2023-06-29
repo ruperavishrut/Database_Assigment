@@ -1,0 +1,3 @@
+SELECT EmpNo, EmpName, Salary 
+FROM `assignmenttable1`
+WHERE Mgr = 7839;

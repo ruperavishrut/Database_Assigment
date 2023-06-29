@@ -1,0 +1,3 @@
+SELECT Empno, EmpName
+FROM `assignmenttable1` 
+Where Salary*12 between 22000 and 45000;

@@ -1,0 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Student Information</title>
+</head>
+<body>
+
+	<h1>Student Information</h1>
+	<p>First Name: ${firstName}</p>
+	<p>Last Name: ${lastName}</p>
+	<p>Email: ${email}</p>
+	<p>Mobile: ${mobile}</p>
+	<p>Gender: ${gender}</p>
+	<p>Password: ${password}</p>
+	
+</body>
+</html>

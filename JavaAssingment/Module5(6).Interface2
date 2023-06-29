@@ -1,0 +1,17 @@
+package com.example.repository;
+
+import com.example.model.Student;
+
+import java.util.List;
+
+public interface StudentRepository {
+    List<Student> getAllStudents();
+
+    void addStudent(Student student);
+
+    Student getStudentById(Long id);
+
+    void updateStudent(Student student);
+
+    void deleteStudent(Long id);
+}

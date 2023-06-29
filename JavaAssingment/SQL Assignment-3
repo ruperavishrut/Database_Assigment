@@ -1,0 +1,3 @@
+SELECT DISTINCT job
+FROM `assignmenttable1` 
+ORDER BY Job DESC;
